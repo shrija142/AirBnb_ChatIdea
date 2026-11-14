@@ -22,6 +22,10 @@ Open <http://localhost:3000/> and send **Plan a weekend in Kyoto for two**. The 
 3. After the thinking animation, the assistant shows an error with **Try again**.
 4. Select **Try again**. The same response bubble fills with the three cards and the stay dates remain 11–13 April 2025. The simulated failure is used up until the page is reloaded.
 
+## Preview a blank booking note
+
+Open <http://localhost:3000/?food=F2> and send **Plan a weekend in Kyoto for two**. The Food card shows **Sagano Yudofu-tei** (F2) and displays **Booking information is not available.** because its Booking Note is empty. The default URL still shows Menya Inoichi (F1).
+
 ## Card components
 
 The Next.js app uses Tailwind CSS and renders each card through a separate component: [Stay](app/components/StayCard.jsx), [Experience](app/components/ExperienceCard.jsx), and [Food](app/components/FoodCard.jsx).

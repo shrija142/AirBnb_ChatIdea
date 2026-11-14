@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import StayCard from './components/StayCard';
 import ExperienceCard from './components/ExperienceCard';
 import FoodCard from './components/FoodCard';
-import { kyotoReply } from './kyoto-reply';
+import { getKyotoReply } from './kyoto-reply';
 
 const sampleRequest = 'Plan a weekend in Kyoto for two';
 const cardComponents = { stay: StayCard, experience: ExperienceCard, food: FoodCard };
@@ -29,13 +29,16 @@ export default function TripPlanner() {
   }, [messages]);
 
   function requestReply(index) {
+    const params = new URLSearchParams(window.location.search);
     setActiveReply(index);
     timer.current = setTimeout(() => {
-      const failOnce = new URLSearchParams(window.location.search).get('fail') === 'once';
+      const failOnce = params.get('fail') === 'once';
       const failed = failOnce && !failureUsed.current;
       if (failed) failureUsed.current = true;
       setMessages(previous => previous.map((entry, position) =>
-        position === index ? { ...entry, status: failed ? 'error' : 'ready' } : entry,
+        position === index
+          ? { ...entry, status: failed ? 'error' : 'ready', cards: getKyotoReply(params.get('food')) }
+          : entry,
       ));
       setActiveReply(null);
     }, 950);
@@ -77,7 +80,7 @@ export default function TripPlanner() {
             </section>
           )}
           <div className="messages grid gap-3.5" role="log" aria-label="Messages" aria-live="polite">
-            {messages.map(({ request, status }, index) => (
+            {messages.map(({ request, status, cards }, index) => (
               <div className="message-pair grid gap-3.5" key={index}>
                 <p className="user-message">{request}</p>
                 <section className="assistant-message">
@@ -102,7 +105,7 @@ export default function TripPlanner() {
                     <>
                       <p className="reply-intro">Here are three ideas for your Kyoto weekend, 11 to 13 Apr.</p>
                       <div className="cards grid gap-2.5">
-                        {kyotoReply.map(({ cardType, details }) => {
+                        {cards.map(({ cardType, details }) => {
                           const Card = cardComponents[cardType];
                           return <Card key={cardType} details={details} />;
                         })}

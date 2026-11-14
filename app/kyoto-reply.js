@@ -35,3 +35,21 @@ export const kyotoReply = [
     },
   },
 ];
+
+const saganoYudofuTei = {
+  restaurantName: 'Sagano Yudofu-tei',
+  mealType: 'Lunch',
+  priceRange: '$$',
+  cuisine: 'Tofu',
+  neighbourhood: 'Arashiyama',
+  estimatedCostForTwoUsd: 64,
+  bookingNote: '',
+};
+
+export function getKyotoReply(foodOption) {
+  if (foodOption !== 'F2') return kyotoReply;
+
+  return kyotoReply.map(card =>
+    card.cardType === 'food' ? { ...card, details: saganoYudofuTei } : card,
+  );
+}
