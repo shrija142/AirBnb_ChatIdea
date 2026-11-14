@@ -1,6 +1,8 @@
 import PhotoPlaceholder from './PhotoPlaceholder';
 
 export default function FoodCard({ details }) {
+  const bookingNote = details.bookingNote?.trim() || 'Booking information is not available.';
+
   return (
     <article className="card food">
       <div className="card-body">
@@ -10,7 +12,7 @@ export default function FoodCard({ details }) {
         <p className="meta">
           {details.cuisine} in {details.neighbourhood} · about ${details.estimatedCostForTwoUsd} USD for two
         </p>
-        <p className="detail">{details.bookingNote}</p>
+        <p className="detail">{bookingNote}</p>
       </div>
       <PhotoPlaceholder />
     </article>

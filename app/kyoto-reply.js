@@ -14,6 +14,7 @@ export const kyotoReply = [
     cardType: 'experience',
     details: {
       activityName: 'Tea ceremony in a 100-year-old machiya',
+      hostFirstName: 'Mei',
       date: 'Sat 12 Apr',
       startTime: '10:30',
       durationHours: 2,

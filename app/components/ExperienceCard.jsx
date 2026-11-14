@@ -2,6 +2,7 @@ import PhotoPlaceholder from './PhotoPlaceholder';
 
 export default function ExperienceCard({ details }) {
   const meetingPoint = details.meetingPoint.replace(/^Outside/, 'outside');
+  const hostFirstName = details.hostFirstName?.trim();
   return (
     <article className="card experience">
       <PhotoPlaceholder />
@@ -13,6 +14,7 @@ export default function ExperienceCard({ details }) {
           {' '}{details.startTime} · {details.durationHours} hours
         </p>
         <p className="detail">Meet {meetingPoint} · ${details.pricePerGuestUsd} USD / guest</p>
+        <p className="detail">{hostFirstName ? `Hosted by ${hostFirstName}` : 'Host name is not available.'}</p>
       </div>
     </article>
   );
